@@ -70,6 +70,7 @@ class Engine {
         Engine.canvas.width = window.innerWidth
         Engine.canvas.height = window.innerHeight
 
+        //@ts-ignore Since this call results in a Camera component, we can set backgroundColor
         Engine.ctx.fillStyle = Camera.main.getComponent(Camera).backgroundColor
         Engine.ctx.beginPath()
         Engine.ctx.rect(0, 0, Engine.canvas.width, Engine.canvas.height)

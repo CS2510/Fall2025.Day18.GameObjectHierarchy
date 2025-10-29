@@ -1,16 +1,31 @@
 /**
  * Base class for all scenes
  * 
+ * See https://docs.unity3d.com/ScriptReference/SceneManagement.Scene.html
  */
 
 class Scene {
+    /**
+     * List of game objects in the scene
+     * See https://docs.unity3d.com/ScriptReference/SceneManagement.Scene.GetRootGameObjects.html
+     * @type {GameObject[]}
+     */
     gameObjects = []
+
+    /**
+     * Start the game objects in the scene
+     */
     start() {
         for (const gameObject of this.gameObjects) {
             gameObject.start()
             gameObject.hasStarted = true
         }
     }
+
+    /**
+     * Update the game objects in the scene
+     * This includes handling physics and removing game objects
+     */
     update() {
 
         //Update everything
@@ -48,9 +63,11 @@ class Scene {
 
 
                     for (const component of a.components) {
+                        //@ts-ignore The optional chaining operator takes care of this potential error
                         component.onCollisionEnter?.(b)
                     }
                     for (const component of b.components) {
+                        //@ts-ignore The optional chaining operator takes care of this potential error
                         component.onCollisionEnter?.(a)
                     }
                 }
@@ -60,14 +77,19 @@ class Scene {
         //Delete what needs to be removed
         this.gameObjects = this.gameObjects.filter(go => !go.markForDelete)
     }
+
+    /**
+     * Draw all the game objects to the screen
+     * @param {CanvasRenderingContext2D} ctx The context to which we are drawing
+     */
     draw(ctx) {
-
-
         ctx.save()
 
+        //Handle the camera transforms
         ctx.translate(window.innerWidth / 2, window.innerHeight / 2)
         ctx.translate(-Camera.main.transform.position.x, -Camera.main.transform.position.y)
 
+        //Draw everything that is not part of the UI
         for (const layer of Engine.layers.filter(l => l != "UI")) {
             const gameObjects = this.gameObjects.filter(go => go.layer == layer)
             for (const gameObject of gameObjects) {
@@ -75,15 +97,24 @@ class Scene {
             }
         }
 
-
-
         ctx.restore()
 
+        //Handle the UI
         const gameObjects = this.gameObjects.filter(go => go.layer == "UI")
         for (const gameObject of gameObjects) {
             gameObject.draw(ctx)
         }
     }
+
+    /**
+     * Instantiate a new game object in the scene.
+     * This function should only be called in the constructor of classes that descend from the Scene class.
+     * When creating new game objects in components, call the static version
+     * 
+     * @param {GameObject} gameObject The game object to instantiate
+     * @param {Vector2} [position] The position of the game object to instantiate
+     * @returns {GameObject} The created game object
+     */
     instantiate(gameObject, position) {
         this.gameObjects.push(gameObject)
         if (position)
@@ -92,6 +123,15 @@ class Scene {
     }
 }
 
+/**
+ * Instantiate a new game object in the current scene.
+ * 
+ * See https://docs.unity3d.com/6000.2/Documentation/ScriptReference/Object.Instantiate.html
+ * 
+ * @param {GameObject} gameObject The game object to add to the current scene
+ * @param {Vector2} position The position of the game object
+ * @returns {GameObject} The created game object
+ */
 function instantiate(gameObject, position){
     return SceneManager.getActiveScene().instantiate(gameObject, position)
 }
