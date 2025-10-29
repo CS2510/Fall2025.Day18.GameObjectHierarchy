@@ -1,15 +1,33 @@
+/**
+ * The main engine class of our engine. It starts the game and runs the game loop.
+ */
 class Engine {
 
     /**
-     * @type {string[]}
+     * The list of default layers in our engine.
+     * @type {string[]} 
      */
     static layers = ["", "UI"]
-    //Engine-specific
+
+
     /**
-     * 
-     * @param {GameProperties} gameProperties 
+     * The canvas element we will draw to
+     * @type {HTMLCanvasElement}
+     */
+    static canvas
+
+    /**
+     * The 2D context we will draw to
+     * @type {CanvasRenderingContext2D}
+     */
+    static ctx
+
+    /**
+     * Start the game
+     * @param {GameProperties} gameProperties Optional argument for specific game-specific properties
      */
     static start(gameProperties) {
+        if(gameProperties)
         Engine.layers.push(...gameProperties.layers)
         Engine.canvas = document.querySelector("#canv")
         Engine.ctx = Engine.canvas.getContext("2d")
@@ -20,13 +38,15 @@ class Engine {
         addEventListener("mousedown", Input.mousedown)
         addEventListener("mouseup", Input.mouseup)
         addEventListener("mousemove", Input.mousemove)
-        //Game-specific
+
         SceneManager.update()
         SceneManager.getActiveScene().start()
         Engine.gameLoop()
     }
 
-    //Engine-specific code
+    /**
+     * Run the game loop. This update the various static classes, then updates the game objects and draw them.
+     */
     static gameLoop() {
         SceneManager.update()
         Engine.update()
@@ -35,26 +55,26 @@ class Engine {
         requestAnimationFrame(Engine.gameLoop)
     }
 
-
-
-    //Engine-specific
+    /**
+     * Update all the game objects in the scene
+     */
     static update() {
         SceneManager.getActiveScene().update()
     }
 
-    //Engine-specific
+    /**
+     * Draw all the game objects in the scene
+     */
     static draw() {
 
         Engine.canvas.width = window.innerWidth
         Engine.canvas.height = window.innerHeight
 
-        //Game-specific
         Engine.ctx.fillStyle = Camera.main.getComponent(Camera).backgroundColor
         Engine.ctx.beginPath()
         Engine.ctx.rect(0, 0, Engine.canvas.width, Engine.canvas.height)
         Engine.ctx.fill()
 
         SceneManager.getActiveScene().draw(Engine.ctx)
-
     }
 }

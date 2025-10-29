@@ -56,7 +56,7 @@
         const uiContainer = this.instantiate(new GameObject("UI Container Game Object"), new Vector2(0, 100))
 
         const title = this.instantiate(new GameObject("Title Game Object", {layer: "UI"}), new Vector2(300, 0))
-        title.addComponent(new Text(), {text: "Celestial Whacker", fillStyle: "black"})
+        title.addComponent(new Text(), {text: "Click the squares to earn points", fillStyle: "black"})
         title.transform.setParent(uiContainer.transform)
         points.transform.setParent(uiContainer.transform)
         

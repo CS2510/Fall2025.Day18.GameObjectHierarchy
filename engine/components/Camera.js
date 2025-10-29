@@ -1,8 +1,35 @@
+/**
+ * Camera component class.
+ * Each scene should have a camera game object with this component attached.
+ * 
+ * See https://docs.unity3d.com/ScriptReference/Camera.html
+ */
 class Camera extends Component{
+
+    /**
+     * The background color of the scene
+     * See https://docs.unity3d.com/ScriptReference/Camera-backgroundColor.html
+     * @type {string}
+     */
     backgroundColor = "magenta"
+
+    /**
+     * Get the main camera game object in the scene
+     * See https://docs.unity3d.com/ScriptReference/Camera-main.html
+     * @type {CameraGameObject}
+     */
     static get main(){
         return GameObject.find("Camera Game Object")
     }
+
+
+    /**
+     * Convert a screen space point to a world space point.
+     * See https://docs.unity3d.com/ScriptReference/Camera.ScreenToWorldPoint.html
+     * 
+     * @param {Vector2} screenSpace The screen space point to convert
+     * @returns {Vector2} The world space point
+     */
     static screenToWorldSpace(screenSpace){
         let screen  = new DOMPoint(screenSpace.x, screenSpace.y)
         let matrix = new DOMMatrix()

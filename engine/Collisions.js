@@ -1,3 +1,8 @@
+/**
+ * The class that does collision detection in a scene.
+ * This should not be called directly by any game components.
+ * Instead, components should listen for OnCollisionEnter()
+ */
 class Collisions {
   static inCollision(a, b) {
     //Get the points in the polygons on each game object

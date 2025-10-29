@@ -1,3 +1,0 @@
-class StarController extends Component{
-  
-}

@@ -1,3 +1,0 @@
-class GameProperties{
-    layers = ["foreground"]
-}
