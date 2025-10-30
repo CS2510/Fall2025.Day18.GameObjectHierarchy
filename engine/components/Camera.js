@@ -22,10 +22,9 @@ class Camera extends Component{
         return GameObject.find("Camera Game Object")
     }
 
-
     /**
      * Convert a screen space point to a world space point.
-     * See https://docs.unity3d.com/ScriptReference/Camera.ScreenToWorldPoint.html
+     * Compare to https://docs.unity3d.com/ScriptReference/Camera.ScreenToWorldPoint.html
      * 
      * @param {Vector2} screenSpace The screen space point to convert
      * @returns {Vector2} The world space point

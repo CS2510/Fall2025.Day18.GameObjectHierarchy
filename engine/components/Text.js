@@ -3,7 +3,8 @@
  * The main drawing component other than Polygon
  * 
  * To be drawn, this component need to have a fillStyle color, a string text, and a font in CSS font format.
- * This class may show an error in IDE since there is a class called text that is part of the JS DOM, hence the following ts-ignore comment
+ * Note: There is a naming conflict with the DOM Text interface, hence the @ts-ignore below
+ * TODO: In a future semester it might help to given this a different name so there isn't a conflict with the Text DOM class
  */
 //@ts-ignore
 class Text extends Component {

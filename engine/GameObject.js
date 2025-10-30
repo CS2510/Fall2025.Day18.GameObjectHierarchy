@@ -103,7 +103,7 @@ class GameObject {
 
     /**
      * Add a component to this game object and set any parameters
-     * @param {Component} component The component to add to the game object
+     * @param {Component|*} component The component to add to the game object
      * @param {object} values Any values to assign to this component
      */
     addComponent(component, values) {
@@ -134,8 +134,9 @@ class GameObject {
     /**
      * Get a component of a certain type
      * See https://docs.unity3d.com/ScriptReference/GameObject.GetComponent.html
-     * @param {new()=>Component} type 
-     * @returns {Component} The first component found on the game object that matches the given type
+     * @template  {Component} T
+     * @param {(new()=>T)|*} type 
+     * @returns {*} The first component found on the game object that matches the given type
      */
     getComponent(type) {
         return this.components.find(go => go instanceof type)
