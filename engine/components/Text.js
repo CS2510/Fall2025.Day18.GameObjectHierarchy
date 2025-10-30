@@ -24,6 +24,10 @@ class Text extends Component {
     font = "24px 'Comic Sans MS'"
 
 
+    /**
+     * Draw the text ot the screen
+     * @param {CanvasRenderingContext2D} ctx The context we are drawing to
+     */
     draw(ctx) {
         ctx.fillStyle = this.fillStyle
         ctx.font = this.font
