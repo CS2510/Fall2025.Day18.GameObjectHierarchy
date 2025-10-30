@@ -1,3 +1,8 @@
+/**
+ * Static class that manages keyboard and mouse input in our engine.
+ * 
+ * See https://docs.unity3d.com/ScriptReference/Input.html
+ */
 class Input {
     /**
      * The keys that are currently down
